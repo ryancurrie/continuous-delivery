@@ -2,6 +2,8 @@
   "name": "continuous-delivery",
   "version": "1.0.0",
   "description": "A practice repository for testing and deployment.",
+  "engines": {
+    "node": "8.7.0",
   "main": "index.js",
   "scripts": {
     "test": "mocha test/",
