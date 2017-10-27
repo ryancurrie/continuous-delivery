@@ -39,5 +39,17 @@ describe('Continuous Delivery', () => {
         }
       )
     })
+    it('Should return a link to the git hub repository', done => {
+      request(
+        { url: 'http://localhost:3000', json: true },
+        (err, response, body) => {
+          expect(body).to.have.property(
+            'url',
+            'https://github.com/ryancurrie/continuous-delivery'
+          )
+          done()
+        }
+      )
+    })
   })
 })

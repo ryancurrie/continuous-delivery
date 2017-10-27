@@ -6,7 +6,8 @@ module.exports = function createApp() {
   app.get('/', (req, res) => {
     res.status(200).json({
       name: 'continuous-delivery',
-      description: 'A practice repository for testing and deployment.'
+      description: 'A practice repository for testing and deployment.',
+      url: 'https://github.com/ryancurrie/continuous-delivery'
     })
   })
 
