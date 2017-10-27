@@ -1,3 +1,4 @@
+require('dotenv').config()
 const { describe, before, after, it } = require('mocha')
 const { expect } = require('chai')
 const request = require('request')
@@ -8,7 +9,7 @@ describe('Continuous Delivery', () => {
   let server
 
   before(done => {
-    server = app.listen(3000, () => {
+    server = app.listen(process.env.PORT, () => {
       done()
     })
   })
@@ -21,7 +22,7 @@ describe('Continuous Delivery', () => {
 
   describe('Get /', () => {
     it('Should return a status 200', done => {
-      request('http://localhost:3000', (err, response, body) => {
+      request('http://localhost:' + process.env.PORT, (err, response, body) => {
         expect(err).to.equal(null)
         expect(response.statusCode).to.equal(200)
         done()
@@ -29,7 +30,7 @@ describe('Continuous Delivery', () => {
     })
     it('Should return an object with then name continuous-delivery and a desciption', done => {
       request(
-        { url: 'http://localhost:3000', json: true },
+        { url: 'http://localhost:' + process.env.PORT, json: true },
         (err, response, body) => {
           expect(body)
             .to.be.an('object')
@@ -41,7 +42,7 @@ describe('Continuous Delivery', () => {
     })
     it('Should return a link to the git hub repository', done => {
       request(
-        { url: 'http://localhost:3000', json: true },
+        { url: 'http://localhost:' + process.env.PORT, json: true },
         (err, response, body) => {
           expect(body).to.have.property(
             'url',
