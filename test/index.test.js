@@ -13,7 +13,7 @@ describe('Continuous Delivery', () => {
   let collection
 
   before(done => {
-    MongoClient.connect(process.env.DEV_DB, (err, _db) => {
+    MongoClient.connect(process.env.MONGODB_URI, (err, _db) => {
       if (err) {
         done(err)
       }
