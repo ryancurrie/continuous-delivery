@@ -1,21 +1,34 @@
 require('dotenv').config()
 const { describe, before, after, it } = require('mocha')
 const { expect } = require('chai')
+const { MongoClient } = require('mongodb')
 const request = require('request')
 const createApp = require('../create-app')
 
 describe('Continuous Delivery', () => {
-  const app = createApp()
+  let app
   let server
+  let db
+  let todos
+  let collection
 
   before(done => {
-    server = app.listen(process.env.PORT, () => {
-      done()
+    MongoClient.connect(process.env.MONGODB_URI, (err, _db) => {
+      if (err) {
+        done(err)
+      }
+      db = _db
+      app = createApp(db)
+      collection = db.collection('todos')
+      server = app.listen(process.env.PORT, () => {
+        done()
+      })
     })
   })
 
   after(done => {
     server.close(() => {
+      db.close()
       done()
     })
   })
