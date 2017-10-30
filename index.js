@@ -1,8 +1,16 @@
 require('dotenv').config()
 const createApp = require('./create-app')
+const { MongoClient } = require('mongodb')
 
-const app = createApp()
+MongoClient.connect(process.env.DEV_DB, (err, db) => {
+  if (err) {
+    console.error(err)
+    porcess.exit(1)
+  }
 
-app.listen(process.env.PORT, () => {
-  console.log('Listening on port ' + process.env.PORT)
+  const app = createApp(db)
+
+  app.listen(process.env.PORT, () => {
+    console.log('Listening on port ' + process.env.PORT)
+  })
 })
