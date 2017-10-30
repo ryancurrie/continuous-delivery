@@ -28,6 +28,7 @@ describe('Continuous Delivery', () => {
 
   after(done => {
     server.close(() => {
+      db.close()
       done()
     })
   })
