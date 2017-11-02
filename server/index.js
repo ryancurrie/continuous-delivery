@@ -5,7 +5,7 @@ const { MongoClient } = require('mongodb')
 MongoClient.connect(process.env.MONGODB_URI, (err, db) => {
   if (err) {
     console.error(err)
-    porcess.exit(1)
+    process.exit(1)
   }
 
   const app = createApp(db)

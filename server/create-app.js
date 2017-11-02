@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path')
 const bodyParser = require('body-parser')
 const todoGateway = require('../server/todo-gateway')
 
@@ -6,6 +7,11 @@ module.exports = function createApp(db) {
   const app = express()
   const jsonParser = bodyParser.json()
   const todos = todoGateway(db.collection('todos'))
+
+  const publicPath = path.join(__dirname, 'public')
+  const staticMiddleware = express.static(publicPath)
+
+  app.use(staticMiddleware)
 
   app.get('/', (req, res) => {
     res.status(200).json({
