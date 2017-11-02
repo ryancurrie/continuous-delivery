@@ -3,7 +3,7 @@ const { describe, before, after, it } = require('mocha')
 const { expect } = require('chai')
 const { MongoClient } = require('mongodb')
 const request = require('request')
-const createApp = require('../create-app')
+const createApp = require('../server/create-app')
 
 describe('Continuous Delivery', () => {
   let app
