@@ -8,8 +8,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test/",
-    "start": "node client/index.js",
-    "watch": "nodemon client/index.js",
+    "start": "node server/index.js",
+    "watch": "nodemon server/index.js",
     "tdd": "mocha test/ -w -R min",
     "cover": "nyc --reporter=lcov npm test",
     "bundle": "browserify client/index.js -t babelify -o server/public/main.js",
