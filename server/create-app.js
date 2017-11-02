@@ -1,8 +1,10 @@
 const express = require('express')
-const todoGateway = require('./todo-gateway')
+const bodyParser = require('body-parser')
+const todoGateway = require('../server/todo-gateway')
 
 module.exports = function createApp(db) {
   const app = express()
+  const jsonParser = bodyParser.json()
   const todos = todoGateway(db.collection('todos'))
 
   app.get('/', (req, res) => {
@@ -16,6 +18,11 @@ module.exports = function createApp(db) {
   app.get('/todos', async (req, res) => {
     const list = await todos.find()
     res.status(200).json(list)
+  })
+
+  app.post('/create', jsonParser, async (req, res) => {
+    const created = await todos.create(req.body)
+    res.status(201).json(created)
   })
 
   return app

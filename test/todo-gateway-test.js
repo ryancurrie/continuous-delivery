@@ -44,13 +44,13 @@ describe('Todo app', () => {
   })
 
   describe('Add todo', () => {
-    const test = { id: uuid(), task: 'test', dueDate: new Date() }
-
     it('should create a new todo in the database, and return it', async () => {
-      const save = await todos.add(test)
-      expect(save)
+      const test = { task: 'test', dueDate: new Date() }
+      const created = await todos.create(test)
+      expect(created)
         .to.be.an('object')
         .that.has.property('task', 'test')
+      expect(created).to.have.property('id')
     })
   })
 })

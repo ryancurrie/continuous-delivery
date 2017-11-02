@@ -1,5 +1,5 @@
 require('dotenv').config()
-const createApp = require('../../create-app')
+const createApp = require('../server/create-app')
 const { MongoClient } = require('mongodb')
 
 MongoClient.connect(process.env.MONGODB_URI, (err, db) => {
