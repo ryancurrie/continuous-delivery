@@ -15,10 +15,14 @@ export default class TodoForm extends Component {
     event.preventDefault()
     const formData = new FormData(event.target)
     const data = {
-      task: formData.get('enter-task'),
-      dueDate: formData.get('enter-date')
+      task: formData.get('task'),
+      dueDate: formData.get('dueDate')
     }
-    console.log(JSON.stringify(data, null, 2))
+    console.log(JSON.stringify(data))
+    fetch('/api/create', {
+      method: 'POST',
+      body: JSON.stringify(data)
+    })
     event.target.reset()
   }
 
