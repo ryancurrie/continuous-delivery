@@ -13,7 +13,7 @@ module.exports = function createApp(db) {
 
   app.use(staticMiddleware)
 
-  app.get('/', (req, res) => {
+  app.get('/api', (req, res) => {
     res.status(200).json({
       name: 'continuous-delivery',
       description: 'A practice repository for testing and deployment.',
@@ -21,12 +21,12 @@ module.exports = function createApp(db) {
     })
   })
 
-  app.get('/todos', async (req, res) => {
+  app.get('/api/todos', async (req, res) => {
     const list = await todos.find()
     res.status(200).json(list)
   })
 
-  app.post('/create', jsonParser, async (req, res) => {
+  app.post('/api/create', jsonParser, async (req, res) => {
     const created = await todos.create(req.body)
     res.status(201).json(created)
   })

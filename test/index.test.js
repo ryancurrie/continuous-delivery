@@ -35,15 +35,18 @@ describe('Continuous Delivery', () => {
 
   describe('Get /', () => {
     it('Should return a status 200', done => {
-      request('http://localhost:' + process.env.PORT, (err, response, body) => {
-        expect(err).to.equal(null)
-        expect(response.statusCode).to.equal(200)
-        done()
-      })
+      request(
+        'http://localhost:' + process.env.PORT + '/api',
+        (err, response, body) => {
+          expect(err).to.equal(null)
+          expect(response.statusCode).to.equal(200)
+          done()
+        }
+      )
     })
     it('Should return an object with then name continuous-delivery and a desciption', done => {
       request(
-        { url: 'http://localhost:' + process.env.PORT, json: true },
+        { url: 'http://localhost:' + process.env.PORT + '/api', json: true },
         (err, response, body) => {
           expect(body)
             .to.be.an('object')
@@ -55,7 +58,7 @@ describe('Continuous Delivery', () => {
     })
     it('Should return a link to the git hub repository', done => {
       request(
-        { url: 'http://localhost:' + process.env.PORT, json: true },
+        { url: 'http://localhost:' + process.env.PORT + '/api', json: true },
         (err, response, body) => {
           expect(body).to.have.property(
             'url',
@@ -70,7 +73,10 @@ describe('Continuous Delivery', () => {
   describe('/todos', () => {
     it('should return a list of todos', done => {
       request(
-        { url: 'http://localhost:' + process.env.PORT + '/todos', json: true },
+        {
+          url: 'http://localhost:' + process.env.PORT + '/api/todos',
+          json: true
+        },
         (err, response, body) => {
           expect(body).to.be.an('array')
           done()
@@ -85,7 +91,7 @@ describe('Continuous Delivery', () => {
         method: 'post',
         body: { task: 'test', dueDate: new Date() },
         json: true,
-        url: 'http://localhost:' + process.env.PORT + '/create'
+        url: 'http://localhost:' + process.env.PORT + '/api/create'
       }
       request(options, (err, httpResponse, body) => {
         expect(err).to.equal(null)
