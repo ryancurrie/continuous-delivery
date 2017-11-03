@@ -9,8 +9,6 @@ describe('Continuous Delivery', () => {
   let app
   let server
   let db
-  let todos
-  let collection
 
   before(done => {
     MongoClient.connect(process.env.MONGODB_URI, (err, _db) => {
@@ -19,7 +17,6 @@ describe('Continuous Delivery', () => {
       }
       db = _db
       app = createApp(db)
-      collection = db.collection('todos')
       server = app.listen(process.env.PORT, () => {
         done()
       })
@@ -48,6 +45,7 @@ describe('Continuous Delivery', () => {
       request(
         { url: 'http://localhost:' + process.env.PORT + '/api', json: true },
         (err, response, body) => {
+          expect(err).to.equal(null)
           expect(body)
             .to.be.an('object')
             .that.has.property('name', 'continuous-delivery')
@@ -60,6 +58,7 @@ describe('Continuous Delivery', () => {
       request(
         { url: 'http://localhost:' + process.env.PORT + '/api', json: true },
         (err, response, body) => {
+          expect(err).to.equal(null)
           expect(body).to.have.property(
             'url',
             'https://github.com/ryancurrie/continuous-delivery'
@@ -78,6 +77,7 @@ describe('Continuous Delivery', () => {
           json: true
         },
         (err, response, body) => {
+          expect(err).to.equal(null)
           expect(body).to.be.an('array')
           done()
         }

@@ -18,7 +18,6 @@ export default class TodoForm extends Component {
       task: formData.get('task'),
       dueDate: formData.get('dueDate')
     }
-    console.log(JSON.stringify(data))
     fetch('/api/create', {
       method: 'POST',
       body: JSON.stringify(data)
