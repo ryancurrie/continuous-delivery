@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import TodoForm from './todo-form'
 import TodoList from './todo-list'
+import axios from 'axios'
 
 export default class App extends Component {
   constructor(props) {
@@ -14,20 +15,21 @@ export default class App extends Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
+  async componentDidMount() {
+    const res = await fetch('/api/todos')
+    const todos = await res.json()
+    this.setState({ todos: this.state.todos.concat(todos) })
+  }
+
   async handleSubmit(event) {
     event.preventDefault()
     const formData = new FormData(event.target)
-    const data = JSON.stringify({
+    const res = await axios.post('/api/create', {
       task: formData.get('task'),
       dueDate: formData.get('dueDate')
     })
-    const res = await fetch('/api/create', {
-      method: 'POST',
-      headers: { 'content-type': 'application-json' },
-      body: data
-    })
-    const newTask = await res.json()
-    event.target.reset()
+    const newTask = res.data
+
     this.setState({ todos: this.state.todos.concat(newTask) })
   }
 
@@ -45,12 +47,7 @@ export default class App extends Component {
         </div>
         <div className="row">
           <div className="col s12 l6 offset-l3">
-            <TodoForm
-              handleSubmit={this.handleSubmit}
-              handleChange={this.handlechange}
-              name={this.state.name}
-              dueDate={this.state.dueDate}
-            />
+            <TodoForm handleSubmit={this.handleSubmit} />
           </div>
         </div>
         <div className="row">

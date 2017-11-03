@@ -89,7 +89,7 @@ describe('Continuous Delivery', () => {
     it('should create a new item and return the item and status 201', done => {
       const options = {
         method: 'post',
-        body: { task: 'test', dueDate: new Date() },
+        body: { task: 'Walk the dog', dueDate: new Date() },
         json: true,
         url: 'http://localhost:' + process.env.PORT + '/api/create'
       }
@@ -98,6 +98,9 @@ describe('Continuous Delivery', () => {
         expect(body)
           .to.be.an('object')
           .that.has.property('id')
+        expect(body)
+          .to.be.an('object')
+          .that.has.property('task')
         expect(httpResponse)
           .to.be.an('object')
           .that.has.property('statusCode', 201)
