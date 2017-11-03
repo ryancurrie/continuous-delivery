@@ -1,5 +1,5 @@
 import React from 'react'
 import ReactDom from 'react-dom'
-import TodoForm from './todo-form'
+import App from './app'
 
-ReactDom.render(<TodoForm />, document.querySelector('#app'))
+ReactDom.render(<App />, document.querySelector('#app'))
