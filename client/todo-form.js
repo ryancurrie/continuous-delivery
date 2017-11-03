@@ -55,13 +55,12 @@ export default class TodoForm extends Component {
                 <div className="row">
                   <div className="input-field">
                     <input
-                      type="text"
+                      type="date"
                       id="enter-date"
                       name="dueDate"
                       value={this.state.dueDate}
                       onChange={this.handleChange}
                     />
-                    <label htmlFor="enter-date">Enter Due Date</label>
                   </div>
                 </div>
                 <div className="row center">
