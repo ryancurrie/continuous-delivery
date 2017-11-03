@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import TodoForm from './todo-form'
+import TodoList from './todo-list'
 
 export default class App extends Component {
   constructor(props) {
@@ -50,6 +51,11 @@ export default class App extends Component {
               name={this.state.name}
               dueDate={this.state.dueDate}
             />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col s12 l6 offset-l3">
+            <TodoList todos={this.state.todos} />
           </div>
         </div>
       </div>
